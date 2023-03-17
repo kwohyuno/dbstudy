@@ -1,0 +1,23 @@
+package javaproject;
+
+public class Ex2MysqlSawon {
+
+	final static String MYSQL_DRIVER="com.mysql.jdbc.Driver";
+	
+	public Ex2MysqlSawon() {
+		try {
+			Class.forName(MYSQL_DRIVER);
+			System.out.println("Mysql 드라이버 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Mysql 드라이버 실패:"+e.getMessage());
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Ex2MysqlSawon ex2=new Ex2MysqlSawon();
+	}
+
+}

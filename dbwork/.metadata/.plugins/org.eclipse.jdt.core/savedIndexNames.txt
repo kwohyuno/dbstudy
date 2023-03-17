@@ -1,0 +1,4 @@
+INDEX VERSION 1.132+D:\bit701study\dbwork\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3822937594.index
+1472866613.index

@@ -1,0 +1,98 @@
+package javaproject;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+public class Ex1OracleShop {
+	static final String ORACLE_DRIVER="oracle.jdbc.driver.OracleDriver";
+	static final String ORACLE_URL="jdbc:oracle:thin:@localhost:1521:xe";
+//	static final String ORACLE_URL="jdbc:oracle:thin:@192.168.0.24:1521:xe";
+	
+	Ex1OracleShop()
+	{
+		
+		try {
+			Class.forName(ORACLE_DRIVER);
+			System.out.println("오라클 드라이버 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("오라클 드라이버 실패:" + e.getMessage());
+		}
+		
+	}
+	
+	public Connection getConnection()
+	{
+		Connection conn=null;
+		try {
+			conn=DriverManager.getConnection(ORACLE_URL, "angel", "a1234");
+			System.out.println("로칼 오라클 연결 성공");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("로칼 오라클 연결 실패:" + e.getMessage());
+		}
+		return conn;
+	}
+	
+	
+	public void writeShop()
+	{
+		Connection conn=this.getConnection();
+		Statement stmt=null;
+		ResultSet rs=null;
+		String sql="select * from shop order by num";
+		
+		try {
+			stmt=conn.createStatement();
+			//데이타를 가져오는 select문은 무조건 excuteQuery로 sql문을 실행한다 
+			rs=stmt.executeQuery(sql);
+			
+			//rs.next()는 다음 레코드로 이동, 다음 데이타가 있으면 true 반환, 없으면 false 
+			while(rs.next())
+			{
+				int num=rs.getInt(1); //컬럼 번호로 가져와도 되고 컬럼명으로 가져와도 된다
+				String sangpum=rs.getString(2);
+				
+				int su=rs.getInt("su");
+				int dan=rs.getInt("dan");
+				String color=rs.getString("color");
+//				String today=rs.getString("today");
+				Timestamp today=rs.getTimestamp("today");
+//				SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd EEEE");
+				SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				
+				System.out.println(num+"\t"+sangpum+"\t"+su+"\t"+dan+"\t"+color+"\t"+dateFormat.format(today));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			System.out.println("sql 오류:"+e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null) rs.close();
+				if(conn!=null) rs.close();
+			}catch(SQLException e) {
+				
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Ex1OracleShop ex1=new Ex1OracleShop(); 
+		ex1.writeShop();
+	}
+
+}
+
+
+
+
+

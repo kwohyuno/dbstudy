@@ -1,0 +1,41 @@
+package javaproject;
+
+import java.sql.Connection;
+
+public class Ex1OracleShop {
+	static final String ORACLE_DRIVER="oracle.jdbc.driver.OracleDriver";
+	static final String ORACLE_URL="";
+	
+	Ex1OracleShop()
+	{
+		
+		try {
+			Class.forName(ORACLE_DRIVER);
+			System.out.println("오라클 드라이버 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("오라클 드라이버 실패:" + e.getMessage());
+		}
+		
+	}
+	
+	public Connection getConnection()
+	{
+		Connection conn=null;
+		
+		return conn;
+	}
+	
+	public void writeShop()
+	{
+		Connection conn=this.getConnection();
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Ex1OracleShop ex1=new Ex1OracleShop(); 
+	}
+
+}
+
+
